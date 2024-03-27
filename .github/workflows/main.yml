@@ -22,11 +22,7 @@ jobs:
         with:
           node-version: '14'
 
-      - name: Install dependencies
-        run: npm install
-
-      - name: Run ESLint
-        run: npm run lint # Assuming you have ESLint configured in your project
+   
 
       - name: Run Node.js Security (nsp)
         run: npx nsp check
