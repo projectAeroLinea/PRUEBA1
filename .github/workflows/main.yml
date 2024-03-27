@@ -1,0 +1,38 @@
+name: Security Tests
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  security_tests:
+    name: Security Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run ESLint
+        run: npm run lint # Assuming you have ESLint configured in your project
+
+      - name: Run Node.js Security (nsp)
+        run: npx nsp check
+
+      - name: Run npm audit
+        run: npm audit
+
+      - name: Scan localhost for open ports
+        run: nmap -p 3000 localhost
